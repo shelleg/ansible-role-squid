@@ -1,0 +1,20 @@
+---
+# defaults file for ansible-role-squid
+squid_server_mode: true
+squid_yum: true
+squid_apt: true
+
+squid_conf_dir: /etc/squid/
+squid_maximum_object_size: 500 # in MB ...
+squid_allow_access_all: true
+
+squid_proxy_host: "http://{{ proxy_server | d('127.0.0.1') }}"
+squid_proxy_port: 3148
+
+allow_private_cidr: true
+# RFC1918
+# cidr_networks: [ "10.0.0.0/8", "172.16.0.0/12", "192.168.0.0/16" ]
+#RFC4193
+# ipv6_networks: [ "fc00::/7", "fe80::/10" ]
+# replace the default of 100MB considering we want apt & rpm packadges to remian
+squid_cache_dir_Mbytes: '5000'

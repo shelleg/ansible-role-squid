@@ -1,0 +1,42 @@
+---
+- name: "Install packadges"
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - "{{ squid_pkg_name }}"
+
+- name: "Configure squid"
+  template:
+    src: "{{ item }}.j2"
+    dest: "{{ squid_conf_dir }}/{{ item }}"
+    owner: root
+    group: root
+    mode: 0644
+  with_items:
+    - squid.conf
+  register: sconf
+
+# see -> https://github.com/Homebrew/legacy-homebrew/issues/41489
+- name: "run squid -z"
+  shell: >
+    squid -z
+  when: ansible_pkg_mgr == "yum"
+
+- name: "Start service"
+  service:
+    name: squid
+    state: restarted
+    enabled: yes
+#  ignore_errors: true
+  register: result
+  until: '"failed" not in result'
+  retries: 10
+  delay: 5
+#  when: sconf.changed
+
+- name: "Wait for squid port to come up"
+  wait_for:
+    port: "{{ squid_proxy_port }}"
+    timeout: 60
+    host: 0.0.0.0
