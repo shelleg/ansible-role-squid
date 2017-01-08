@@ -14,10 +14,6 @@ require 'yaml'
 # Read YAML file with box details
 servers = YAML.load_file('servers.yml')
 
-if Dir["#{vagrant_dir}/galaxy-roles/*"].empty? && Dir["#{vagrant_dir}/site-roles/*"].empty?
-  abort('no roles to execute aborting ,,, [ hint: ansible-galaxy install -r requirements.yml should help :) ]')
-end
-
 # Create boxes
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
@@ -37,18 +33,12 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
           # Ansible provisioner
           srv.vm.provision :ansible do |ansible|
                 ansible.limit = servers[:name]
-                ansible.playbook = "./playbooks/default.yml"
-                #ansible.sudo = "true"
-                #ansible.sudo_user = "root"
+                ansible.playbook = "tests/site.yml"
+                ansible.sudo = "true"
+                ansible.sudo_user = "root"
                 ansible.host_key_checking = "false"
                 ansible.verbose = "#{ansible_verbosity}"
-                ansible.extra_vars = {
-                  some_var: "some_value",
-                  dict: {
-                    kay1: "val1",
-                    kay2: "val2"
-                  }
-                }
+                ansible.raw_arguments = ["--connection=paramiko"]
           end
     end
   end

@@ -1,0 +1,6 @@
+---
+- hosts: squid-ubuntu,squid-centos
+  become: true
+  roles:
+    - ./roles/squid
+

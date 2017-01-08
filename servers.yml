@@ -3,7 +3,7 @@
 - name: squid-centos
   box: centos/7
   ram: 768
-  ip: 172.16.1.99
+  ip: 172.16.1.140
   # when used for development I do not want to accedentelly remove it ...
   # hence I am using vagrant protect plugin (https://github.com/ryuzee/vagrant-protect)
   protected: true
@@ -11,6 +11,6 @@
 - name: squid-ubuntu
   box: bento/ubuntu-16.04
   ram: 768
-  ip: 172.16.1.198
+  ip: 172.16.1.150
   protected: false
   #protected: true
