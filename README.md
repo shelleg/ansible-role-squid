@@ -18,7 +18,7 @@ just config clients:
       roles:
          - shelleg.squid
            squid_server_mode: false
-           squid_proxy_port: 8080                # your custom proxy port
+           squid_proxy_port: 3148                # your custom proxy port
            proxy_server: <your proxy host or ip> # do not specify port !
            
 Default vars
@@ -27,7 +27,7 @@ Default vars
 squid_server_mode: true # install server
 squid_yum: true         # configure yum proxy & disable fast mirror
 squid_apt: true         # configure apt proxy
-squid_proxy_port: 3148  # the defult sqiod listen port
+squid_proxy_port: 8080  # the defult sqiod listen port
 
 ```
 

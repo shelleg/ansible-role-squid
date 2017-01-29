@@ -9,7 +9,7 @@ squid_maximum_object_size: 500 # in MB ...
 squid_allow_access_all: true
 squid_proxy_protocol: http
 squid_proxy_host: "{{ squid_proxy_protocol | d('http) }}://{{ proxy_server | d('127.0.0.1') }}"
-squid_proxy_port: 3148
+squid_proxy_port: 8080
 
 allow_private_cidr: true
 # RFC1918
