@@ -7,11 +7,3 @@
 - name: "Install server"
   include: "squid-server-install.yml"
   when: (squid_server_mode is defined) and (squid_server_mode | bool)
-
-- name: "config apt/yum client(s) against server"
-  include: "squid-config-client.yml"
-  when: (((squid_yum is defined) and (squid_yum | bool)) or ((squid_apt is defined) and (squid_apt | bool)))
-
-
-
-
